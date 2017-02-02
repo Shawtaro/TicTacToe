@@ -19,7 +19,21 @@ public class RandomAI implements TicTacToeStrategy {
 
 	@Override
 	public Point desiredMove(TicTacToeGame theGame) {
-
-		return new Point(2, 2);
+		boolean isFilled = true;
+		for(int i=0;i<3;i++)
+			for(int j=0;j<3;j++)
+				if(theGame.getTicTacToeBoard()[i][j]=='_')
+					isFilled=false;
+		if(isFilled)
+			throw new IGotNowhereToGoException("");
+		int i = randomIndex();
+		int j = randomIndex();
+		if (theGame.getTicTacToeBoard()[i][j] == '_')
+			return new Point(i, j);
+		else
+			return desiredMove(theGame);
+	}
+	private int randomIndex(){
+		return (int) (Math.random() * 3);
 	}
 }

@@ -154,9 +154,10 @@ public class TestStrategies {
     theGame.choose(2, 0);
     // X
     theGame.choose(0, 2);
-
+    //System.out.println("\n\n Results \n \n"+theGame.toString());
     Point computerMove = playerWithStopperStrategy.desiredMove(theGame);
     theGame.choose(computerMove.x, computerMove.y);
+    //System.out.println("\n\n After \n \n"+theGame.toString());
     assertEquals(0, computerMove.x);
     assertEquals(1, computerMove.y);
   }
@@ -196,7 +197,7 @@ public class TestStrategies {
     theGame.choose(2, 1);
     // X
     theGame.choose(0, 2);
-
+    //System.out.println("\n\n Before \n \n"+theGame.toString());
     Point computerMove = playerWithStopperStrategy.desiredMove(theGame);
     theGame.choose(computerMove.x, computerMove.y);
     System.out.println(theGame);

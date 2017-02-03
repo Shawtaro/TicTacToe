@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import model.RandomAI;
 import model.StopperAI;
 import model.TicTacToeGame;
+import view.TextFieldView;
 import view.ButtonView;
 
 /**
@@ -41,6 +42,7 @@ public class TicTacToeGUI extends JFrame {
 
   private TicTacToeGame theGame;
   private ButtonView buttonView;
+  private TextFieldView altView;
   private JPanel currentView;
   public static final int width = 300;
   public static final int height = 360;
@@ -54,6 +56,7 @@ public class TicTacToeGUI extends JFrame {
     setupMenus();
     initializeGameForTheFirstTime();
     buttonView = new ButtonView(theGame, width, height);
+    altView= new TextFieldView(theGame, width, height);
     addObservers();
     // Set default view
     setViewTo(buttonView);
@@ -61,6 +64,7 @@ public class TicTacToeGUI extends JFrame {
 
   private void addObservers() {
     theGame.addObserver(buttonView);
+    theGame.addObserver(altView);
   }
 
   public void initializeGameForTheFirstTime() {
@@ -77,10 +81,16 @@ public class TicTacToeGUI extends JFrame {
     // Add two Composites to a Composite
     JMenuItem jmi2Nest = new JMenu("Stategies");
     menu.add(jmi2Nest);
+    JMenuItem Views = new JMenu("Views");
+    menu.add(Views);
     JMenuItem beginner = new JMenuItem("RandomAI");
     jmi2Nest.add(beginner);
     JMenuItem intermediate = new JMenuItem("Stopper");
     jmi2Nest.add(intermediate);
+    JMenuItem JButton = new JMenuItem("JButton");
+    Views.add(JButton);
+    JMenuItem JTextField = new JMenuItem("JTextField");
+    Views.add(JTextField);
 
     // Set the menu bar
     JMenuBar menuBar = new JMenuBar();
@@ -92,6 +102,9 @@ public class TicTacToeGUI extends JFrame {
     newGame.addActionListener(menuListener);
     beginner.addActionListener(menuListener);
     intermediate.addActionListener(menuListener);
+    JButton.addActionListener(menuListener);
+    JTextField.addActionListener(menuListener);
+
   }
 
   private void setViewTo(JPanel newView) {
@@ -123,6 +136,12 @@ public class TicTacToeGUI extends JFrame {
 
       if (text.equals("Random")) {
         theGame.setComputerPlayerStrategy(new RandomAI());
+      }
+      if(text.equals("JButton")){
+    	  setViewTo(buttonView);
+      }
+      if(text.equals("JTextField")){
+    	  setViewTo(altView);
       }
     }
   }

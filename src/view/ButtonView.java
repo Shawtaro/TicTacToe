@@ -112,6 +112,7 @@ public class ButtonView extends JPanel implements OurObserver {
         updateButtons();
       }
       else if (theGame.didWin('X')) {
+    	  
         stateButton.setText("X wins");
         updateButtons();
       }

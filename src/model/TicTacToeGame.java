@@ -139,6 +139,7 @@ public class TicTacToeGame extends OurObservable {
   }
 
   public boolean available(int r, int c) {
+
     return board[r][c] == '_';
   }
 

@@ -16,24 +16,22 @@ public class RandomAI implements TicTacToeStrategy {
 
 	// Randomly find an open spot while ignoring possible wins and stops.
 	// This should be easy to beat as a human.
-
-	@Override
-	public Point desiredMove(TicTacToeGame theGame) {
-		boolean isFilled = true;
-		for(int i=0;i<3;i++)
-			for(int j=0;j<3;j++)
-				if(theGame.getTicTacToeBoard()[i][j]=='_')
-					isFilled=false;
-		if(isFilled)
+	public Point desiredMove(TicTacToeGame theGame) throws IGotNowhereToGoException {
+		if (theGame.maxMovesRemaining() == 0)
 			throw new IGotNowhereToGoException("");
-		int i = randomIndex();
-		int j = randomIndex();
-		if (theGame.getTicTacToeBoard()[i][j] == '_')
+
+		int i = randomIndex(theGame);
+		int j = randomIndex(theGame);
+
+		// checks if random move is available, if not, try another random move
+		if (theGame.available(i, j))
 			return new Point(i, j);
 		else
 			return desiredMove(theGame);
 	}
-	private int randomIndex(){
-		return (int) (Math.random() * 3);
+
+	// returns random index within the size of the board
+	private int randomIndex(TicTacToeGame theGame) {
+		return (int) (Math.random() * theGame.size());
 	}
 }

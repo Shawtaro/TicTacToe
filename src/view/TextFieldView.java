@@ -33,7 +33,7 @@ public class TextFieldView extends JPanel implements OurObserver {
 	private JTextArea game = new JTextArea();
 	private ComputerPlayer computerPlayer;
 	private int height, width;
-	private JButton move = new JButton("Make the move");
+	private JButton move = new JButton("make the move");
 	JTextField row = new JTextField();
 	JTextField col = new JTextField();
 
@@ -43,6 +43,16 @@ public class TextFieldView extends JPanel implements OurObserver {
 		this.width = width;
 		computerPlayer = theGame.getComputerPlayer();
 		initializeButtonPanel();
+	}
+
+	// updates button text in b/w view changes to update in case of win/tie
+	public void updateText() {
+		if (theGame.didWin('X'))
+			this.move.setText("X Wins");
+		if (theGame.didWin('O'))
+			this.move.setText("O Wins");
+		if (theGame.tied())
+			this.move.setText("Tied");
 	}
 
 	private void initializeButtonPanel() {
@@ -86,6 +96,7 @@ public class TextFieldView extends JPanel implements OurObserver {
 		this.add(game, BorderLayout.SOUTH);
 
 		this.add(altPanel);
+
 	}
 
 	// Handles updating the game when button clicked
@@ -141,9 +152,8 @@ public class TextFieldView extends JPanel implements OurObserver {
 	public void update() {
 		// TODO Auto-generated method stub
 		game.setText(theGame.toString());
-		if (theGame.maxMovesRemaining() == theGame.size() * theGame.size())
-			;
-		move.setText("Make the move");
+		if (theGame.stillRunning())
+			move.setText("Make the move");
 	}
 
 }
